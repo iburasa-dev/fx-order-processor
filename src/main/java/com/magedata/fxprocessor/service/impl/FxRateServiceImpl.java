@@ -81,26 +81,22 @@ public class FxRateServiceImpl implements FxRateService {
         String source = sourceCurrency.trim().toUpperCase();
         String target = targetCurrency.trim().toUpperCase();
 
-        // Identity conversion
         if (source.equals(target)) {
             return new FxRateResult(BigDecimal.ONE.setScale(6, RoundingMode.HALF_UP), FxRateResult.SOURCE_IDENTITY);
         }
 
-        //  Cached Live API lookup via Spring's @Cacheable annotation
         boolean isNotFound = false;
         try {
             BigDecimal rate = self.fetchFromLiveApiWithCache(source, target);
             return new FxRateResult(rate, FxRateResult.SOURCE_LIVE_API);
         } catch (HttpClientErrorException ex) {
             isNotFound = true;
-            log.warn("Frankfurter v2 rejected currency pair {}/{} with HTTP {}: {}",
-                    source, target, ex.getStatusCode(), ex.getResponseBodyAsString());
+            log.warn("Frankfurter v2 rejected currency pair {}/{}: {}", source, target, ex.getMessage());
         } catch (Exception ex) {
-            log.warn("Failed to fetch live FX rate from Frankfurter v2 for {}/{} ({}). Falling back to cached snapshot.",
-                    source, target, ex.getMessage());
+            log.warn("Live FX rate fetch failed for {}/{}: {}. Falling back to snapshot.", source, target, ex.getMessage());
         }
 
-        // Database Snapshot Fallback
+        // Check fallback snapshot in database
         Optional<ExchangeRateSnapshotEntity> snapshot =
                 snapshotRepository.findBySourceCurrencyIgnoreCaseAndTargetCurrencyIgnoreCase(source, target);
 
@@ -110,7 +106,7 @@ public class FxRateServiceImpl implements FxRateService {
             return new FxRateResult(snapshotRate, FxRateResult.SOURCE_FALLBACK_SNAPSHOT);
         }
 
-        // Emergency Static Baseline Fallback
+        // Check baseline rates
         String pairKey = source + "_" + target;
         if (BASELINE_RATES.containsKey(pairKey)) {
             BigDecimal baselineRate = BASELINE_RATES.get(pairKey).setScale(6, RoundingMode.HALF_UP);
@@ -118,7 +114,6 @@ public class FxRateServiceImpl implements FxRateService {
             return new FxRateResult(baselineRate, FxRateResult.SOURCE_FALLBACK_EMERGENCY);
         }
 
-        // Inverted Static Baseline Fallback
         String reversePairKey = target + "_" + source;
         if (BASELINE_RATES.containsKey(reversePairKey)) {
             BigDecimal invertedRate = BigDecimal.ONE.divide(BASELINE_RATES.get(reversePairKey), 6, RoundingMode.HALF_UP);
@@ -126,7 +121,6 @@ public class FxRateServiceImpl implements FxRateService {
             return new FxRateResult(invertedRate, FxRateResult.SOURCE_FALLBACK_EMERGENCY);
         }
 
-        // Specification-Compliant Error Handling
         if (isNotFound) {
             throw new InvalidCurrencyException(
                     "Unsupported currency for FX conversion: " + source + " to " + target);

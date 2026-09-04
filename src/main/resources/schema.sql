@@ -1,13 +1,3 @@
--- ============================================================================
--- FX & Multi-Currency Order Processor - Database Initialization Script
--- Target Database: PostgreSQL 13+
--- ============================================================================
-
--- Step 1: Create Database (Run this separately if not yet created)
--- CREATE DATABASE fx_orders_db;
--- \c fx_orders_db;
-
--- Clean slate (optional)
 DROP TABLE IF EXISTS order_items CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS exchange_rate_snapshots CASCADE;
