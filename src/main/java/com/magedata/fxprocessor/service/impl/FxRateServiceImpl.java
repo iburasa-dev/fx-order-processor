@@ -42,29 +42,29 @@ public class FxRateServiceImpl implements FxRateService {
     private static final Map<String, BigDecimal> BASELINE_RATES = new ConcurrentHashMap<>();
 
     static {
-        BASELINE_RATES.put("EUR_USD", new BigDecimal("1.085000"));
-        BASELINE_RATES.put("USD_EUR", new BigDecimal("0.921600"));
-        BASELINE_RATES.put("GBP_USD", new BigDecimal("1.295000"));
-        BASELINE_RATES.put("USD_GBP", new BigDecimal("0.772200"));
-        BASELINE_RATES.put("JPY_USD", new BigDecimal("0.006700"));
-        BASELINE_RATES.put("USD_JPY", new BigDecimal("149.250000"));
-        BASELINE_RATES.put("CAD_USD", new BigDecimal("0.735000"));
-        BASELINE_RATES.put("AUD_USD", new BigDecimal("0.655000"));
-        BASELINE_RATES.put("CHF_USD", new BigDecimal("1.135000"));
+        BASELINE_RATES.put("EUR_USD", new BigDecimal("1.161500"));
+        BASELINE_RATES.put("USD_EUR", new BigDecimal("0.860960"));
+        BASELINE_RATES.put("GBP_USD", new BigDecimal("1.349700"));
+        BASELINE_RATES.put("USD_GBP", new BigDecimal("0.740900"));
+        BASELINE_RATES.put("JPY_USD", new BigDecimal("0.006410"));
+        BASELINE_RATES.put("USD_JPY", new BigDecimal("156.010000"));
+        BASELINE_RATES.put("CAD_USD", new BigDecimal("0.725058"));
+        BASELINE_RATES.put("AUD_USD", new BigDecimal("0.719321"));
+        BASELINE_RATES.put("CHF_USD", new BigDecimal("1.236950"));
 
         BASELINE_RATES.put("USD_AED", new BigDecimal("3.672500"));
         BASELINE_RATES.put("AED_USD", new BigDecimal("0.272294"));
-        BASELINE_RATES.put("EUR_AED", new BigDecimal("3.984663"));
-        BASELINE_RATES.put("AED_EUR", new BigDecimal("0.250962"));
-        BASELINE_RATES.put("GBP_AED", new BigDecimal("4.755888"));
-        BASELINE_RATES.put("AED_GBP", new BigDecimal("0.210266"));
+        BASELINE_RATES.put("EUR_AED", new BigDecimal("4.265609"));
+        BASELINE_RATES.put("AED_EUR", new BigDecimal("0.234433"));
+        BASELINE_RATES.put("GBP_AED", new BigDecimal("4.956773"));
+        BASELINE_RATES.put("AED_GBP", new BigDecimal("0.201744"));
         BASELINE_RATES.put("USD_SAR", new BigDecimal("3.750000"));
         BASELINE_RATES.put("SAR_USD", new BigDecimal("0.266667"));
 
-        BASELINE_RATES.put("USD_INR", new BigDecimal("83.950000"));
-        BASELINE_RATES.put("INR_USD", new BigDecimal("0.011912"));
-        BASELINE_RATES.put("USD_SGD", new BigDecimal("1.345000"));
-        BASELINE_RATES.put("SGD_USD", new BigDecimal("0.743494"));
+        BASELINE_RATES.put("USD_INR", new BigDecimal("94.490000"));
+        BASELINE_RATES.put("INR_USD", new BigDecimal("0.010583"));
+        BASELINE_RATES.put("USD_SGD", new BigDecimal("1.267800"));
+        BASELINE_RATES.put("SGD_USD", new BigDecimal("0.788768"));
     }
 
     public FxRateServiceImpl(

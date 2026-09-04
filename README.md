@@ -44,6 +44,11 @@ Database credentials and service properties are defined in `src/main/resources/a
 - `DB_URL` (default: `jdbc:postgresql://localhost:5432/fx_orders_db`)
 - `DB_USERNAME` (default: `app_user`)
 - `DB_PASSWORD` (default: `AppUserSecure2026!`)
+- `DB_POOL_MIN_IDLE` (default: `5`)
+- `DB_POOL_MAX_SIZE` (default: `20`)
+- `DB_POOL_CONN_TIMEOUT` (default: `30000` ms)
+- `DB_POOL_IDLE_TIMEOUT` (default: `300000` ms)
+- `DB_POOL_MAX_LIFETIME` (default: `1800000` ms)
 
 ## Build & Run
 
